@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: tidb-writer
+Version: 0.0.1
+Summary: A package that implementes routing functionalities over Redis client (Part of AiOS FrameDB)
+Home-page: UNKNOWN
+Author: cognitifai
+License: UNKNOWN
+Description: ###TiDB Writer 
+        A minimilistic writer implementation with validation used by Gstreamer plugin `tidbsink`
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: None :: Closed License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown

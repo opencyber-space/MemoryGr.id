@@ -1,0 +1,4 @@
+{"message": "Starting up stream_alerts", "timestamp": "2022-02-14T10:51:03.266797Z", "level": "info", "action": "start_up", "service_name": "stream-alerts"}
+{"message": "Connected to Redis, listening for events", "timestamp": "2022-02-14T10:51:03.302160Z", "level": "info", "action": "stream_alerts_event_loop", "service_name": "stream-alerts"}
+{"message": "Popped alert from queue", "timestamp": "2022-02-14T10:51:08.401639Z", "level": "info", "action": "stream_alerts_pop", "service_name": "stream-alerts"}
+{"message": "pushed alert for source prasannatest", "timestamp": "2022-02-14T10:51:09.040234Z", "level": "info", "action": "stream_alert_push", "service_name": "stream-alerts"}

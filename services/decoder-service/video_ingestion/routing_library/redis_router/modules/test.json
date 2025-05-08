@@ -1,0 +1,47 @@
+{
+    "ac_data": {
+        "head": {
+            "sourceID": "aws-video-1",
+            "head": [
+                {
+                    "vdagID": "vdag-c309a",
+                    "isActive": true,
+                    "inputs": [
+                        {
+                            "blockID": "block-9f417",
+                            "input": "input_0",
+                            "label": "obj-det-1",
+                            "generated_queue_name": "block-9f417__input_0",
+                            "block": "obj-det-1.input_0"
+                        }
+                    ],
+                    "fps": 8
+                }
+            ],
+            "mapping": {
+                "block-9f417": {
+                    "machine": "framedb-5",
+                    "required_sizes": [
+                        "416x416"
+                    ],
+                    "owners": [
+                        "vdag-c309a"
+                    ],
+                    "type": "algorithm"
+                },
+                "block-bd076": {
+                    "machine": "framedb-5",
+                    "required_sizes": [
+                        "416x416",
+                        "1920x1080"
+                    ],
+                    "owners": [
+                        "vdag-c309a"
+                    ],
+                    "type": "algorithm"
+                }
+            }
+        },
+        "mdag_id": "default-mdag"
+    }
+}

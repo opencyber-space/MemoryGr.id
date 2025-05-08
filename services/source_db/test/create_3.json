@@ -1,0 +1,33 @@
+{
+    "sourceID": "chennai-source-2",
+    "groupID": "chennai-group",
+    "label": "Chennai Camera 2",
+    "description": "Test live video stream",
+    "sourceType": "live",
+    "liveSourceInfo": {
+        "protocol": "rtsp",
+        "streamURL": "rtsp://freja.hiof.no:1935/rtplive/_definst_/hessdalen03.stream",
+        "onvifURL": "localhost:7000",
+        "isOnvifAuth": true,
+        "onvifAuth": {
+            "username": "xxxx",
+            "password": "yyyy"
+        },
+        "streamParameters": {
+            "codec": "h265",
+            "fps": 25
+        },
+        "geoJson": {
+            "lat": 77.123,
+            "lang": 12.33
+        }
+    },
+    "sourceMetadata": {
+        "frameProperties": {
+            "width": 1920,
+            "height": 1080,
+            "encodingFormat": "jpeg"
+        },
+        "calibrationData": {}
+    }
+}

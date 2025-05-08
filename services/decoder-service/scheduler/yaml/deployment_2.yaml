@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <pod-name>
+  namespace: framedb-storage
+  labels:
+    app: <pod-name>
+spec:
+  selector:
+    matchLabels:
+      app: <pod-name>
+  template:
+    metadata:
+      labels:
+        app: <pod-name>
+    spec:
+      containers:
+      - name: gstreamer
+        image: gstreamer_service:latest
+        imagePullPolicy : IfNotPresent
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        env:
+         - name: "INGESTION_URI"
+           value: "http://ingestion-service-svc.framedb-storage.svc.cluster.local:8000"
+
+      nodeSelector:
+          framedb: "<machine>"

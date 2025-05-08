@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: decoder-scheduler-svc
+  namespace: framedb-storage
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v1
+      kind: Mapping
+      name: decoder-scheduler-svc
+      prefix: /decoder/
+      rewrite : /
+      service: decoder-scheduler-svc.framedb-storage.svc.cluster.local:5000
+spec:
+  selector:
+    app: decoder-scheduler
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP

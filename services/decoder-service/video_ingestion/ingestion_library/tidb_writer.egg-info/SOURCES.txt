@@ -1,0 +1,12 @@
+README.md
+setup.py
+tidb_writer/__init__.py
+tidb_writer/env.py
+tidb_writer/source.py
+tidb_writer/validator.py
+tidb_writer/writer.py
+tidb_writer.egg-info/PKG-INFO
+tidb_writer.egg-info/SOURCES.txt
+tidb_writer.egg-info/dependency_links.txt
+tidb_writer.egg-info/requires.txt
+tidb_writer.egg-info/top_level.txt

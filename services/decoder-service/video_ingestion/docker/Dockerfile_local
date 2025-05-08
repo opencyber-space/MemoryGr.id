@@ -1,0 +1,187 @@
+#FROM nvidia/cuda:11.2.1-devel-ubuntu20.04
+#to get squshaed docer images from previous build, do the following
+#pip3 install docker-squash
+#docker-squash gstreamer_service -t tempgst:squashed
+FROM tempgst:squashed
+#FROM cogregistry.appserver1.com:443/gstreamer_service
+#RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A4B469963BF863CC
+#RUN apt-get --allow-releaseinfo-change update		
+#RUN rm /etc/apt/sources.list.d/cuda.list	
+#RUN rm /etc/apt/sources.list.d/nvidia-ml.list
+#RUN sed -i -e 's/http:\/\/in.archive/mirror:\/\/mirrors/' -e 's/\/ubuntu\//\/mirrors.txt/' /etc/apt/sources.list
+# nvidia gpu parameters
+#ENV NVIDIA_VISIBLE_DEVICES all
+#ENV NVIDIA_DRIVER_CAPABILITIES all
+#ARG DEBIAN_FRONTEND=noninteractive
+
+# expect a build-time variable
+# use the value to set the ENV var default
+ENV BRANCH=$VERSION
+ENV PATH="${PATH}:/root/.local/bin:/usr/local/cuda-11.2/bin"
+ENV LD_LIBRARY_PATH="/usr/local:/usr/local/cuda-11.2/lib64:${LD_LIBRARY_PATH}"
+
+#RUN apt-get update && apt-get install apt-transport-https ca-certificates -y && update-ca-certificates
+
+#RUN apt-get update && apt-get install -y \
+#        cmake git autoconf autopoint libtool libreadline-dev \
+#        automake unzip nano wget python3-pip \
+#        gtk-doc-tools glib-2.0 freeglut3 \
+#        bison flex libglib2.0-dev libgvc6 graphviz-dev \
+#        libunwind-dev libdw-dev libgtk-3-dev \
+#        liborc-0.4-0 liborc-0.4-dev \
+#        libx11-dev xorg-dev libglu1-mesa-dev freeglut3-dev \
+#        libglew1.5 libglew1.5-dev \
+#        libglu1-mesa libglu1-mesa-dev libgl1-mesa-glx \
+#        libgl1-mesa-dev \
+#        libtheora-bin libtheora-dev libtheora-doc \
+#        libvorbis-dev \
+#        libcdparanoia-dev \
+#        alsa-base alsa-tools \
+#        libasound2-dev \
+#        libopus-dev libvisual-0.4-dev libpango1.0 \
+#        libwavpack-dev libspeex-dev libdv4-dev \
+#        libsoup2.4-dev qtdeclarative5-dev \
+#        libcairo-dev \
+#        libjpeg-dev \
+#        yasm nasm libbz2-dev liblzma-dev \
+#        libx264-dev \
+#        x265 x264 \
+#        libx264-dev \
+#        python-gi-dev \
+#        python3-dev \
+#        gir1.2-gst-plugins-base-1.0 && \
+#        pip3 install --user meson==0.58.1 && \
+#        wget https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-linux.zip && \
+#        unzip ninja-linux.zip && \
+#        mv ninja /usr/local/bin/ && \
+#        rm ninja-linux.zip && \
+#        git clone https://gitlab.freedesktop.org/gstreamer/gst-build.git
+
+###kini did this for enable-ssl
+RUN apt-get update && apt-get install -y \
+  autoconf automake build-essential cmake git pkg-config yasm \
+  libaom-dev libass-dev libbluray-dev libbs2b-dev libcaca-dev libcdio-dev \
+  libfontconfig1-dev libfreetype6-dev libfribidi-dev libgme-dev libgsm1-dev \
+  libjack-jackd2-dev libmp3lame-dev libmysofa-dev libopenmpt-dev \
+  libopus-dev libpulse-dev librsvg2-dev librubberband-dev libshine-dev \
+  libsnappy-dev libsoxr-dev libspeex-dev libssh-dev libtheora-dev \
+  libtwolame-dev libvidstab-dev libvorbis-dev libvpx-dev libwebp-dev \
+  libx265-dev libxml2-dev libxvidcore-dev libzmq3-dev libzvbi-dev \
+  libomxil-bellagio-dev libopenal-dev libopengl-dev libsdl2-dev \
+  libdc1394-22-dev libdrm-dev libx264-dev libssl-dev libtool \
+  libva-dev libvdpau-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev texinfo \
+  wget zlib1g-dev ladspa-sdk libraw1394-dev libiec61883-dev libopenjp2-7-dev \
+  ocl-icd-opencl-dev libcdio-dev libcdio-paranoia-dev
+RUN apt -y remove --purge ffmpeg
+#RUN dpkg -l | grep libiec61883
+#RUN find /usr/lib -name libiec61883.pc
+#RUN ls /usr/include/libiec61883/
+#RUN pkg-config --modversion libiec61883
+#RUN pkg-config --cflags libiec61883
+#RUN pkg-config --libs libiec61883
+RUN export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
+RUN ldconfig
+#RUN pkg-config --cflags libiec61883
+#RUN pkg-config --libs libiec61883
+#RUN cat /usr/lib/x86_64-linux-gnu/pkgconfig/libiec61883.pc
+#RUN apt-get update && apt-get install -y dnsutils
+
+#RUN nslookup git.ffmpeg.org
+#RUN wget https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+COPY ffmpeg-snapshot.tar.bz2.1 .
+RUN tar xjf ffmpeg-snapshot.tar.bz2.1
+WORKDIR ffmpeg
+#COPY ffmpeg-7.0.2.tar.xz .
+#RUN tar xf ffmpeg-7.0.2.tar.xz
+#RUN ls -l
+# Build ffmpeg with OpenSSL support
+#RUN git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
+#WORKDIR ffmpeg
+#WORKDIR ffmpeg-7.0.2
+#--enable-avresample --enable-libwavpack --enable-avisynth --enable-chromaprint --enable-frei0r --enable-lv2 -enable-libiec61883 --enable-libcodec2 --enable-libflite removed
+#removed --enable-gnutls because it conflicts with --enable-openssl as Both libraries provide TLS/SSL functionalities, and enabling both creates conflicts within FFmpeg's codebase.
+#RUN make distclean
+RUN ./configure --logfile=ffbuild/config.log --disable-librsvg --enable-openssl --enable-nonfree --enable-gpl --disable-stripping --disable-filter=resample --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx  --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libx264 --enable-shared
+RUN cat ffbuild/config.log
+RUN make -j$(nproc)
+RUN make install
+RUN ldconfig
+
+#RUN apt-get update && apt-get install -y software-properties-common
+#RUN add-apt-repository ppa:jonathonf/ffmpeg-4
+#RUN apt-get update && apt-get install -y ffmpeg libavcodec-extra
+
+# Verify that FFmpeg supports rtsps
+RUN which ffprobe
+RUN ffprobe -protocols
+
+# RUN apt update && apt install ibgirepository1.0-dev
+ARG VERSION="1.19.1"
+
+#RUN apt install -y libgirepository1.0-dev gcc libcairo2-dev pkg-config python3-dev gir1.2-gtk-3.0
+WORKDIR /gst-build
+#RUN git checkout "$VERSION"
+#RUN /root/.local/bin/meson build;
+# RUN apt install -y libgirepository1.0-dev gcc libcairo2-dev pkg-config python3-dev gir1.2-gtk-3.0
+
+#for running GRPC scripts
+#RUN pip3 install grpcio protobuf
+
+#some additional pip packages used by example plugins
+#RUN pip3 install matplotlib numpy_ringbuffer pillow
+
+#clone NVIDIA patch
+#RUN git clone https://github.com/keylase/nvidia-patch.git
+#COPY ./nvidia-patch nvidia-patch
+
+#RUN apt install -y libgirepository1.0-dev gcc libcairo2-dev pkg-config python3-dev gir1.2-gtk-3.0
+
+#for camera manager server
+#RUN pip3 install flask
+
+#RUN pip3 install redis kafka-python grpcio
+
+
+
+#RUN apt update -y && apt install -y ffmpeg libleveldb-dev
+#RUN pip3 install requests
+
+COPY . /gst-build/video_ingestion
+COPY setup_env.sh /gst-build/
+COPY env.sh /gst-build
+COPY build.sh /
+COPY meson.build /gst-build/gst-python/meson.build
+
+RUN chmod 777 /build.sh
+
+WORKDIR /gst-build
+
+#build gstreamer
+RUN meson configure build/ -Dgst-plugins-bad:nvcodec=enabled && ninja -C build/;
+
+
+#install ingestion_library used for TiDB 
+RUN pip3 install -e video_ingestion/ingestion_library
+
+#install routing_libary used for in-memory routing system
+RUN pip3 install -e video_ingestion/routing_library
+
+COPY ./gst-env.py /gst-build/gst-env.py
+
+RUN chmod 777 env.sh
+RUN chmod 777 setup_env.sh
+
+#RUN mv nvidia-patch /
+
+COPY ./pygst_utils /gst-build/pygst_utils
+COPY main.py /gst-build/main.py
+
+#RUN apt install -y libturbojpeg
+#RUN pip3 install pyturbojpeg Flask==1.1.2 Flask-Cors==3.0.10 loguru==0.5.3
+#RUN pip3 install pyturbojpeg Flask>=2.2.2 Flask-Cors==3.0.10 loguru==0.5.3 itsdangerous>=2.1.2
+
+# Install DALi
+#RUN pip3 install --extra-index-url https://developer.download.nvidia.com/compute/redist --upgrade nvidia-dali-cuda110
+#RUN pip3 install --timeout 1000 --upgrade nvidia-dali-cuda110
+
+ENTRYPOINT ["./env.sh" ]

@@ -1,0 +1,23 @@
+{
+    "sourceID": "source-chennai-124",
+    "groupID": "chennai-group",
+    "label": "Chennai Camera 124",
+    "description": "This is the test description",
+    "sourceType": "live",
+    "offlineVideo": {
+        "container": "mp4",
+        "storageVideoPath": "/home/video.mp4",
+        "videoParameters": {
+            "codec": "h265",
+            "fps": 25
+        }  
+    },
+    "sourceMetadata": {
+        "frameProperties": {
+            "width": 1920,
+            "height": 1080,
+            "encodingFormat": "jpeg"
+        },
+        "calibrationData": {}
+    }
+}

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package framedb;
+
+service ObjectService {
+  // Stores the object in FrameDB
+  rpc SetObject(SetObjectRequest) returns (SetObjectResponse);
+
+  // Retrieves the object from FrameDB
+  rpc GetObject(GetObjectRequest) returns (GetObjectResponse);
+}
+
+// The object message structure
+message Object {
+  string key = 1;                  // Unique key for the object
+  string framedb_id = 2;           // ID of the FrameDB instance storing this object
+  bytes data = 3;                  // Raw binary data
+  string metadata = 4;             // JSON-serialized string with additional metadata
+  string type = 5;                 // type of the data being written to ("in-memory" or "storage" or "queue")
+}
+
+// Request to set an object
+message SetObjectRequest {
+  Object object = 1;
+}
+
+// Response after setting an object
+message SetObjectResponse {
+  bool success = 1;
+  string message = 2;
+  string key = 3; 
+}
+
+// Request to get an object
+message GetObjectRequest {
+  string key = 1;
+}
+
+// Response containing the object
+message GetObjectResponse {
+  bool found = 1;
+  Object object = 2;
+  string message = 3;
+}

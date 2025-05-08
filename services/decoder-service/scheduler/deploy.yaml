@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: decoder-scheduler
+  namespace: framedb-storage
+  labels:
+    app: decoder-scheduler
+spec:
+  selector:
+    matchLabels:
+      app: decoder-scheduler
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: decoder-scheduler
+    spec:
+      containers:
+      - name: decoder-scheduler
+        image: ds:v1
+        imagePullPolicy : Never
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        env:
+         - name: "CONTAINER"
+           value: "1"
+        volumeMounts:
+         - name : logging 
+           mountPath : /logs
+         - name: kube
+           mountPath: /root/.kube
+      volumes :
+        - name : logging
+          hostPath:
+            path: /home/ubuntu/dag-logs
+        - name: kube
+          hostPath:
+            path: /home/ubuntu/.kube
+      nodeSelector:
+          framedb: framedb-0

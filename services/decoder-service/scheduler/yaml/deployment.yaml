@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <pod-name>
+  namespace: framedb-storage
+  labels:
+    app: <pod-name>
+spec:
+  selector:
+    matchLabels:
+      app: <pod-name>
+  template:
+    metadata:
+      labels:
+        app: <pod-name>
+    spec:
+      containers:
+      - name: gstreamer
+        image: gstreamer_service:latest
+        imagePullPolicy : IfNotPresent
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        env:
+         - name: "INGESTION_URI"
+           value: "http://ingestion-service-svc.framedb-storage.svc.cluster.local:8000"
+         - name: "NVIDIA_VISIBLE_DEVICES"
+           value: "<gpu-id>"
+         - name: "NVIDIA_DRIVER_CAPABILITIES"
+           value: "all"
+         - name: REDIS_PASSWORD
+           value: 's+8Cb05S<5Z)'
+         - name: "ENABLE_FRAME_WRITE"
+           value: "<ENABLE_FRAME_WRITE>"
+         - name: "FRAME_WRITE_INTERVAL"
+           value: "<FRAME_WRITE_INTERVAL>"
+        volumeMounts:
+         - name : logging 
+           mountPath : /logs
+         - name: frames
+           mountPath: /frames
+         - name: "nvidia<gpu-id>"
+           mountPath: "/dev/nvidia<gpu-id>"
+         - name: nvidia-caps
+           mountPath: /dev/nvidia-caps
+         - name: nvidiactl
+           mountPath: /dev/nvidiactl
+         - name: nvidia-modeset
+           mountPath: /dev/nvidia-modeset
+         - name: nvidia-uvm
+           mountPath: /dev/nvidia-uvm
+         - name: nvidia-uvm-tools
+           mountPath: nvidia-uvm-tools
+         - name: frame-dumps
+           mountPath: /frames-dumps
+        securityContext:
+           privileged: true
+      volumes :
+        - name : logging
+          hostPath:
+            path: /home/ubuntu/dag-logs
+        - name: frames
+          hostPath:
+            path: /home/ubuntu/frames
+        - name: "nvidia<gpu-id>"
+          hostPath:
+            path: "/dev/nvidia<gpu-id>"
+        - name: nvidia-caps
+          hostPath:
+            path: /dev/nvidia-caps
+        - name: nvidiactl
+          hostPath:
+            path: /dev/nvidiactl
+        - name: nvidia-modeset
+          hostPath:
+            path: /dev/nvidia-modeset
+        - name: nvidia-uvm
+          hostPath:
+            path: /dev/nvidia-uvm
+        - name: nvidia-uvm-tools
+          hostPath:
+            path: /dev/nvidia-uvm-tools
+        - name: frame-dumps
+          hostPath:
+             path: /home/ubuntu/frame-dumps
+      nodeSelector:
+          framedb: "<machine>"

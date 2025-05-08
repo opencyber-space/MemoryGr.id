@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: framedb-config
+  namespace: framedb-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: framedb-config
+  template:
+    metadata:
+      labels:
+        app: framedb-config
+    spec:
+      containers:
+        - name: framedb-config
+          image: framedb/config-service:v1
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGO_URL
+              value: "mongodb://framedb-0.framedb-db.svc.cluster.local:27017"
+            - name: CLUSTER_SERVICE_URL
+              value: "http://cluster-service.framedb-services.svc.cluster.local:8000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: framedb-config-svc
+  namespace: framedb-services
+spec:
+  selector:
+    app: framedb-config
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+      nodePort: 30610
+  type: NodePort

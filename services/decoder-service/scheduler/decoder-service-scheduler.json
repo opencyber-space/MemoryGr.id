@@ -1,0 +1,2 @@
+{"message": "Initialized Server to start decode requests", "timestamp": "2024-04-04T10:57:52.026884Z", "level": "info", "action": "server_init", "service_name": "decoder-service-scheduler"}
+{"message": "Initialized Server to start decode requests", "timestamp": "2024-04-04T10:57:59.805538Z", "level": "info", "action": "server_init", "service_name": "decoder-service-scheduler"}
