@@ -1,6 +1,6 @@
 # MemoryGrid
 
-**MemoryGrid** is a distributed, multi-modal data store for storing large binary blobs such as video streams, high-resolution images, and structured sensor data. It offers unified support for **in-memory**, **persistent**, and **streaming** backends—making it ideal for high-performance AI pipelines, ingestion workflows, and real-time analytics.
+**MemoryGrid** is a distributed/decentralized, multi-modal data store for storing blobs such as video streams, images, multimedia, high-resolution and sensory data. It offers unified support for **in-memory**, **persistent**, and **streaming** backends—making it ideal for high-performance AI pipelines, ingestion workflows, and real-time analytics.
 
 > Designed for Kubernetes-native environments with first-class support for dynamic deployment, service discovery, and multi-cluster routing.
 
@@ -86,4 +86,4 @@ Whether it’s fixing bugs, improving documentation, or building new features—
 
 ## 📄 License
 
-[MIT](LICENSE)
+[APACHE 2.0](LICENSE)
