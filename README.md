@@ -85,4 +85,4 @@ Whether it’s fixing bugs, improving documentation, or building new features—
 
 ## 📄 License
 
-[MIT](LICENSE)
+[APACHE 2.0](LICENSE)
