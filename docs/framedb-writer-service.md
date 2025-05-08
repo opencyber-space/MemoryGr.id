@@ -1,4 +1,4 @@
-# **FrameDB Writer Client Documentation**
+# **MemoryGrid Writer Client Documentation**
 
 ## **Overview**
 

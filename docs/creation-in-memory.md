@@ -1,11 +1,11 @@
-# Creating FrameDB In-Memory instances
+# Creating MemoryGrid In-Memory instances
 
-In-memory frameDB instances can be created using FrameDB config service which is deployed by default on the management cluster. Not all clusters support FrameDB by default, to enable FrameDB for a cluster you need to create the FrameDB local config service which takes care of executing the creation/config requests proxied to it by the global config service.
+In-memory MemoryGrid instances can be created using MemoryGrid config service which is deployed by default on the management cluster. Not all clusters support MemoryGrid by default, to enable MemoryGrid for a cluster you need to create the MemoryGrid local config service which takes care of executing the creation/config requests proxied to it by the global config service.
 
 
-## Creating FrameDB local config service
+## Creating MemoryGrid local config service
 
-FrameDB can be enabled on a cluster by creating the FrameDB local config service, the local config service takes care of deployment of creation and configuration FrameDB memory instances. 
+MemoryGrid can be enabled on a cluster by creating the MemoryGrid local config service, the local config service takes care of deployment of creation and configuration MemoryGrid memory instances. 
 
 Certainly. Below is the **revised, professionally written, and technically precise API documentation** for the following endpoints:
 
@@ -18,7 +18,7 @@ Certainly. Below is the **revised, professionally written, and technically preci
 
 ### Endpoint: `POST /framedb-config/setup`
 
-Deploys the FrameDB Config Service and its supporting infrastructure on the specified Kubernetes cluster.
+Deploys the MemoryGrid Config Service and its supporting infrastructure on the specified Kubernetes cluster.
 
 #### Behavior
 
@@ -28,8 +28,8 @@ This operation performs the following actions:
 * Creates a PersistentVolume (PV) and a PersistentVolumeClaim (PVC) for MongoDB with the specified storage size
 * Deploys a MongoDB instance with storage mounted at `/data/db`
 * Creates a ClusterIP service named `framedb-local-config` to expose MongoDB within the cluster
-* Deploys the FrameDB Config Service container with the environment variable `MONGO_URL` pointing to the internal MongoDB service
-* Exposes the FrameDB Config Service via a NodePort service named `framedb-config-service` on port `32566`
+* Deploys the MemoryGrid Config Service container with the environment variable `MONGO_URL` pointing to the internal MongoDB service
+* Exposes the MemoryGrid Config Service via a NodePort service named `framedb-config-service` on port `32566`
 
 #### Request
 
@@ -60,7 +60,7 @@ This operation performs the following actions:
 ```json
 {
   "success": true,
-  "message": "FrameDB config service setup complete"
+  "message": "MemoryGrid config service setup complete"
 }
 ```
 
@@ -86,14 +86,14 @@ This operation performs the following actions:
 
 ### Endpoint: `DELETE /framedb-config/remove`
 
-Removes all resources associated with the FrameDB Config Service from the target Kubernetes cluster.
+Removes all resources associated with the MemoryGrid Config Service from the target Kubernetes cluster.
 
 #### Behavior
 
 This operation performs the following cleanup tasks:
 
 * Deletes the MongoDB deployment (`mongodb`)
-* Deletes the FrameDB Config Service deployment (`framedb-config`)
+* Deletes the MemoryGrid Config Service deployment (`framedb-config`)
 * Deletes the associated services:
 
   * `framedb-local-config` (MongoDB ClusterIP)
@@ -129,7 +129,7 @@ This operation performs the following cleanup tasks:
 ```json
 {
   "success": true,
-  "message": "FrameDB config service removed"
+  "message": "MemoryGrid config service removed"
 }
 ```
 
@@ -155,7 +155,7 @@ This operation performs the following cleanup tasks:
 
 ### Endpoint: `POST /framedb-config/status`
 
-Retrieves the current deployment and health status of all FrameDB Config Service components in the specified local Kubernetes cluster.
+Retrieves the current deployment and health status of all MemoryGrid Config Service components in the specified local Kubernetes cluster.
 
 ### Behavior
 
@@ -181,7 +181,7 @@ This operation connects to the Kubernetes cluster using the provided `kube_confi
   * Lists cluster IPs and node port mappings for:
 
     * `framedb-local-config` (MongoDB)
-    * `framedb-config-service` (FrameDB Config API)
+    * `framedb-config-service` (MemoryGrid Config API)
 
 * **PersistentVolumeClaim**
 
@@ -262,9 +262,9 @@ This operation connects to the Kubernetes cluster using the provided `kube_confi
 
 ---
 
-## Creating and configuring FrameDB In-memory instances
+## Creating and configuring MemoryGrid In-memory instances
 
-These API provides centralized control for provisioning and managing FrameDB memory instances across multiple Kubernetes clusters. It delegates instance deployment to remote clusters via API calls, while maintaining registry metadata in a global database.
+These API provides centralized control for provisioning and managing MemoryGrid memory instances across multiple Kubernetes clusters. It delegates instance deployment to remote clusters via API calls, while maintaining registry metadata in a global database.
 
 All registry entries are scoped and identified using a unique `framedb_id`.
 
@@ -272,7 +272,7 @@ All registry entries are scoped and identified using a unique `framedb_id`.
 
 ## Endpoint: `POST /global/framedb/instances`
 
-Provisions a new FrameDB memory instance on the specified Kubernetes cluster and records the instance in the global registry.
+Provisions a new MemoryGrid memory instance on the specified Kubernetes cluster and records the instance in the global registry.
 
 ### Request
 
@@ -284,7 +284,7 @@ Provisions a new FrameDB memory instance on the specified Kubernetes cluster and
 
 | Field           | Type             | Required | Description                                                               |
 | --------------- | ---------------- | -------- | ------------------------------------------------------------------------- |
-| `framedb_id`    | string           | Yes      | Unique identifier for the FrameDB memory instance.                        |
+| `framedb_id`    | string           | Yes      | Unique identifier for the MemoryGrid memory instance.                        |
 | `node_id`       | string           | Yes      | Node label or identifier where the instance should be deployed.           |
 | `node_selector` | object           | No       | Optional override for node affinity. Defaults to `{ "nodeID": node_id }`. |
 | `metadata`      | object           | Yes      | Arbitrary metadata dictionary to associate with the instance.             |
@@ -337,7 +337,7 @@ Provisions a new FrameDB memory instance on the specified Kubernetes cluster and
 
 ## Endpoint: `DELETE /global/framedb/instances/<framedb_id>`
 
-Removes an existing FrameDB memory instance both from the target cluster and the global registry.
+Removes an existing MemoryGrid memory instance both from the target cluster and the global registry.
 
 ### Behavior
 
@@ -357,7 +357,7 @@ This operation performs the following actions:
 
 | Parameter    | Type   | Description                                      |
 | ------------ | ------ | ------------------------------------------------ |
-| `framedb_id` | string | The ID of the FrameDB memory instance to remove. |
+| `framedb_id` | string | The ID of the MemoryGrid memory instance to remove. |
 
 #### Example Request
 
@@ -396,14 +396,14 @@ DELETE /global/framedb/instances/redis-001
 
 ---
 
-### FrameDB Port Allocation Scheme
+### MemoryGrid Port Allocation Scheme
 
-FrameDB memory instances are exposed via a Kubernetes **NodePort service** to enable external access. The global service ensures that each deployed instance is assigned a unique and non-conflicting NodePort within a predefined range.
+MemoryGrid memory instances are exposed via a Kubernetes **NodePort service** to enable external access. The global service ensures that each deployed instance is assigned a unique and non-conflicting NodePort within a predefined range.
 
 ## Port Allocation Logic
 
 * **Port Range**:
-  FrameDB NodePort services are allocated from the range:
+  MemoryGrid NodePort services are allocated from the range:
 
   ```
   30700–30900 (inclusive)
@@ -413,7 +413,7 @@ FrameDB memory instances are exposed via a Kubernetes **NodePort service** to en
   The range allows **201 distinct NodePorts**, which means:
 
   ```
-  Maximum concurrent FrameDB memory instances per cluster = 201
+  Maximum concurrent MemoryGrid memory instances per cluster = 201
   ```
 
 * **Conflict Avoidance**:
@@ -442,14 +442,14 @@ If all ports in the range are exhausted, any new deployment attempt will fail wi
 ---
 
 
-## Global FrameDB Instance Registry – Query APIs
+## Global MemoryGrid Instance Registry – Query APIs
 
-These APIs provide capabilities to **query FrameDB memory instances** stored in the global registry database. Each entry includes instance-specific metadata such as `framedb_id`, `cluster_id`, `node_id`, port, connectivity URLs, deployment status, and user-defined metadata.
+These APIs provide capabilities to **query MemoryGrid memory instances** stored in the global registry database. Each entry includes instance-specific metadata such as `framedb_id`, `cluster_id`, `node_id`, port, connectivity URLs, deployment status, and user-defined metadata.
 
 
 ### 1. `GET /global/framedb/instances/cluster/<cluster_id>`
 
-Retrieves all FrameDB memory instances deployed in the specified cluster.
+Retrieves all MemoryGrid memory instances deployed in the specified cluster.
 
 #### Request
 
@@ -502,7 +502,7 @@ GET /global/framedb/instances/cluster/cluster-01
 
 ### 2. `GET /global/framedb/instances/cluster/<cluster_id>/node/<node_id>`
 
-Retrieves all FrameDB instances deployed on a specific node within a given cluster.
+Retrieves all MemoryGrid instances deployed on a specific node within a given cluster.
 
 #### Request
 
@@ -592,7 +592,7 @@ Performs a flexible MongoDB-style query on the global registry using any combina
 
 ### 4. `GET /global/framedb/instances/<framedb_id>`
 
-Fetches a specific FrameDB memory instance by its unique identifier.
+Fetches a specific MemoryGrid memory instance by its unique identifier.
 
 ### Request
 
@@ -641,11 +641,11 @@ GET /global/framedb/instances/redis-001
 
 ---
 
-## FrameDB Live config update
+## MemoryGrid Live config update
 
 ### Endpoint: `POST /global/framedb/set-config`
 
-Updates the runtime configuration of an existing FrameDB memory instance by sending Redis configuration commands to the corresponding cluster. This operation also persists the updated configuration in the global registry.
+Updates the runtime configuration of an existing MemoryGrid memory instance by sending Redis configuration commands to the corresponding cluster. This operation also persists the updated configuration in the global registry.
 
 ### Request
 
@@ -657,7 +657,7 @@ Updates the runtime configuration of an existing FrameDB memory instance by send
 
 | Field        | Type             | Required | Description                                                         |
 | ------------ | ---------------- | -------- | ------------------------------------------------------------------- |
-| `framedb_id` | string           | Yes      | Unique identifier of the FrameDB memory instance.                   |
+| `framedb_id` | string           | Yes      | Unique identifier of the MemoryGrid memory instance.                   |
 | `config`     | array of strings | Yes      | Redis configuration commands to apply (e.g., `["maxmemory 64mb"]`). |
 
 #### Example Request

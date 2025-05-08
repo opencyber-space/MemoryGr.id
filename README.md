@@ -66,6 +66,7 @@ MemoryGrid provides built-in support for video pipelines via **GStreamer**. Deco
 - [Creating Persistent Storage Instances](./docs/creation-storage.md)
 - [Object Service API](./docs/creating-objects.md)
 - [MemoryGrid Write Client SDK for Applications](./docs/framedb-writer-service.md)
+- [MemoryGrid python SDK](./docs/client-sdk.md)
 - [Video Ingestion](./docs/video-ingestion.md)
 
 ---

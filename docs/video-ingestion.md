@@ -1,6 +1,6 @@
 # Video Ingestion
 
-FrameDB supports video ingestion through **GStreamer**, an external system built on top of FrameDB.
+MemoryGrid supports video ingestion through **GStreamer**, an external system built on top of MemoryGrid.
 
 ## Architecture
 
@@ -57,7 +57,7 @@ However, **read-only APIs** (such as listing pipelines) may be used externally f
 
 ## Creating GStreamer Ingestion Pods
 
-FrameDB supports dynamic creation and removal of GStreamer ingestion pods via a Decoder Pod Scheduler. These pods run decoding pipelines on GPU-enabled Kubernetes nodes. The APIs interact with the Kubernetes cluster to create or remove decoding pods and their associated services.
+MemoryGrid supports dynamic creation and removal of GStreamer ingestion pods via a Decoder Pod Scheduler. These pods run decoding pipelines on GPU-enabled Kubernetes nodes. The APIs interact with the Kubernetes cluster to create or remove decoding pods and their associated services.
 
 ---
 
@@ -713,7 +713,7 @@ curl -X POST http://localhost:3000/api/source/removeByGroupID \
 
 ### Overview
 
-FrameDB's video decoding infrastructure uses **GStreamer (GST)** to dynamically construct and run multimedia pipelines for **live streams** and **stored videos**. Decoder pods are deployed on GPU-enabled Kubernetes nodes. Each pod launches decoding pipelines as independent processes and is orchestrated by a central Decoder Scheduler.
+MemoryGrid's video decoding infrastructure uses **GStreamer (GST)** to dynamically construct and run multimedia pipelines for **live streams** and **stored videos**. Decoder pods are deployed on GPU-enabled Kubernetes nodes. Each pod launches decoding pipelines as independent processes and is orchestrated by a central Decoder Scheduler.
 
 This document provides a complete overview of:
 
@@ -738,7 +738,7 @@ In this command:
 * `decodebin` automatically detects the format and decodes it
 * `autovideosink` displays the video
 
-FrameDB dynamically assembles such pipelines based on source metadata and user configurations, optimizing for GPU or CPU-based decoding.
+MemoryGrid dynamically assembles such pipelines based on source metadata and user configurations, optimizing for GPU or CPU-based decoding.
 
 ---
 
@@ -768,17 +768,17 @@ Below is a table listing the supported configuration parameters.
 | `source_id`                | String   | Yes          | Unique identifier for the stream/video source.                              |
 | `mode`                     | String   | Yes          | Specifies decoding mode. Allowed: `"live"` or `"video"`.                    |
 | `url`                      | String   | Yes          | RTSP URL or file path to the input video source.                            |
-| `routing_url`              | String   | Yes          | Base URL of the FrameDB API to query node mappings.                         |
+| `routing_url`              | String   | Yes          | Base URL of the MemoryGrid API to query node mappings.                         |
 | `routing_api`              | String   | Yes          | API path appended to `routing_url` to perform routing query.                |
 | `use_gpu`                  | Boolean  | Yes          | Use GPU-accelerated decoding (`nvh264dec`, `nvjpegdec`) or fallback to CPU. |
 | `container`                | String   | No           | Required only for stored videos. Allowed: `"mp4"`, `"mkv"`, `"flv"`.        |
 | `loop_video`               | Boolean  | Yes          | Whether to loop the video endlessly.                                        |
 | `duration`                 | Integer  | Yes          | Total duration in seconds to run the decoding job.                          |
 | `color_format`             | String   | Yes          | Output video color format. Example: `"RGB"`, `"BGR"`.                       |
-| `update_counter`           | Integer  | Yes          | Frequency of update messages to FrameDB.                                    |
+| `update_counter`           | Integer  | Yes          | Frequency of update messages to MemoryGrid.                                    |
 | `frame_quality`            | Integer  | Yes          | JPEG/PNG quality for output frames (0–100).                                 |
 | `retry_interval`           | Integer  | Yes          | Retry wait time in seconds after decoding failure.                          |
-| `updates_url`              | String   | Yes          | Redis or FrameDB update channel URL.                                        |
+| `updates_url`              | String   | Yes          | Redis or MemoryGrid update channel URL.                                        |
 | `updates_port`             | Integer  | Yes          | Port used to send update messages.                                          |
 | `updates_password`         | String   | Yes          | Password to authenticate update channel access.                             |
 | `is_sentinel`              | Boolean  | Yes          | Whether Redis uses sentinel-based configuration.                            |
@@ -817,7 +817,7 @@ This section prepares the decoded video for resizing, color conversion, and batc
 
 ### C. Encoder Unit
 
-Final stage that either batches, streams, or writes the output to FrameDB.
+Final stage that either batches, streams, or writes the output to MemoryGrid.
 
 | Mode           | Snippet                    |
 | -------------- | -------------------------- |
@@ -836,9 +836,9 @@ A JSON blob named `FRAMEDB_C` is constructed and injected into the environment o
 * Actuation metadata
 * Redis update configuration
 * Color formatting and quality
-* FrameDB routing references
+* MemoryGrid routing references
 
-This environment is used by internal FrameDB GStreamer plugins to perform intelligent encoding, storage, and routing decisions.
+This environment is used by internal MemoryGrid GStreamer plugins to perform intelligent encoding, storage, and routing decisions.
 
 ---
 
@@ -875,11 +875,11 @@ Here is an example `source_data` input for a stored video pipeline:
 
 ## GStreamer pipeline structure
 
-FrameDB dynamically constructs GStreamer pipelines based on source type (stored or live), codec, hardware capabilities (GPU/CPU), and downstream requirements. The final pipeline is composed of three logical sections:
+MemoryGrid dynamically constructs GStreamer pipelines based on source type (stored or live), codec, hardware capabilities (GPU/CPU), and downstream requirements. The final pipeline is composed of three logical sections:
 
 1. **Decoder Unit** – Fetches and decodes video input
 2. **Branch Unit** – Processes decoded frames (resizing, color format, scaling)
-3. **Encoder Unit** – Sends frames to the FrameDB sink
+3. **Encoder Unit** – Sends frames to the MemoryGrid sink
 
 ---
 
@@ -906,7 +906,7 @@ filesrc location="/videos/sample.mp4" ! qtdemux ! h264parse ! nvh264dec ! fps_ch
 | `cudaconvert`                                | Converts format/colorspace within GPU (e.g., NV12 → RGB).               |
 | `video/x-raw(memory:CUDAMemory), format=RGB` | Applies GPU memory layout and output format.                            |
 | `cudadownload`                               | Downloads processed video frames from GPU to CPU.                       |
-| `video_writer`                               | Custom plugin that encodes/writes output to FrameDB in stored mode.     |
+| `video_writer`                               | Custom plugin that encodes/writes output to MemoryGrid in stored mode.     |
 
 ---
 
@@ -945,7 +945,7 @@ rtspsrc protocol=tcp location="rtsp://camera" latency=10 ! rtpjpegdepay ! jpegpa
 | Plugin                                | Used When              | Description                                                     |
 | ------------------------------------- | ---------------------- | --------------------------------------------------------------- |
 | `timestamper`                         | `use_custom_ts=true`   | Applies custom timestamp metadata (typically for stored video). |
-| `videoscale`, `cudascale`             | If scaling is required | Resize the frame to target dimensions (per FrameDB node specs). |
+| `videoscale`, `cudascale`             | If scaling is required | Resize the frame to target dimensions (per MemoryGrid node specs). |
 | `videoconvert`                        | In CPU pipelines       | Converts between colorspaces or pixel formats in CPU.           |
 | `jpegdec`, `avdec_h264`, `avdec_h265` | When `use_gpu=false`   | Software decoders used when GPU decoding is disabled.           |
 

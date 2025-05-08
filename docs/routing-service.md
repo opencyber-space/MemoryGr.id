@@ -1,15 +1,15 @@
 
 # Routing Service
 
-The **Routing Service** maintains a registry of objects and streaming queues that are distributed across multiple FrameDB instances in the network. It also tracks the replicas of each object that may exist across different FrameDBs under the same object ID.
+The **Routing Service** maintains a registry of objects and streaming queues that are distributed across multiple MemoryGrid instances in the network. It also tracks the replicas of each object that may exist across different FrameDBs under the same object ID.
 
 ### Core Functions of the Routing Service:
 
-1. Maintain a list of object IDs currently stored across all FrameDB instances in the network.
+1. Maintain a list of object IDs currently stored across all MemoryGrid instances in the network.
 
 2. Store metadata associated with each object to enable search and discovery.
 
-3. Record the FrameDB instance ID for each object, allowing querying services to locate the object efficiently.
+3. Record the MemoryGrid instance ID for each object, allowing querying services to locate the object efficiently.
 
 4. Maintain a list of in-memory streaming queues along with their associated metadata.
 
@@ -21,15 +21,15 @@ Certainly! Below is the **technical API documentation** for the **Routing Servic
 
 ## Routing Service APIs for objects
 
-These APIs manage the routing metadata for object entries (`FrameDBObject`) across distributed FrameDB instances.
+These APIs manage the routing metadata for object entries (`FrameDBObject`) across distributed MemoryGrid instances.
 
 
 ### `POST /framedb/objects`
 
-### Create a new FrameDB object routing entry
+### Create a new MemoryGrid object routing entry
 
 **Description**:
-Registers a new object in the routing database, along with its primary FrameDB instance and metadata.
+Registers a new object in the routing database, along with its primary MemoryGrid instance and metadata.
 
 **Request Body** (JSON):
 
@@ -214,13 +214,13 @@ Returns whether a given `framedb_id` is listed as a replica location for the obj
 * `200 OK` – If found
 * `404 Not Found` – If not found
 
-Great — here is the **technical API documentation** for the **Streaming APIs** of the Routing Service, covering `StreamsObject` operations. These APIs manage stream queue registrations, metadata, and updates across FrameDB in-memory instances.
+Great — here is the **technical API documentation** for the **Streaming APIs** of the Routing Service, covering `StreamsObject` operations. These APIs manage stream queue registrations, metadata, and updates across MemoryGrid in-memory instances.
 
 ---
 
 ## Routing Service API — Streaming (StreamsObject) Endpoints
 
-These endpoints manage list in-memory **stream queues** and their metadata in the FrameDB network.
+These endpoints manage list in-memory **stream queues** and their metadata in the MemoryGrid network.
 
 
 ### `POST /framedb/streams`

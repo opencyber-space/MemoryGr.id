@@ -70,3 +70,15 @@ class RedisInterface:
             results.append(value)
         self.logger.debug(f"Pulled {len(results)} items from queue='{queue_name}'")
         return results
+    
+    def listen_for_inputs(self, queue_name: str):
+        if not self.client:
+            raise ConnectionError("Redis client not connected.")
+        self.logger.info(f"Listening on queue='{queue_name}' for incoming data...")
+        while True:
+            try:
+                _, value = self.client.blpop(queue_name)
+                yield value
+            except redis.RedisError as e:
+                self.logger.error(f"Redis error on '{queue_name}': {e}")
+                break

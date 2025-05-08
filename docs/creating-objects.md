@@ -2,7 +2,7 @@ Certainly. Below is the **technical documentation** for the FrameDB gRPC-based o
 
 ---
 
-# **FrameDB Object Service Documentation**
+# **MemoryGrid Object Service Documentation**
 
 ---
 

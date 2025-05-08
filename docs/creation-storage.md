@@ -1,27 +1,27 @@
-Absolutely! Below is the **professionally rewritten, technically accurate, and fully adapted documentation for FrameDB Persistent (TiDB-backed) instances**, based on the structure of your original In-Memory version.
+Absolutely! Below is the **professionally rewritten, technically accurate, and fully adapted documentation for MemoryGrid Persistent (TiDB-backed) instances**, based on the structure of your original In-Memory version.
 
 ---
 
-# Creating FrameDB Persistent Instances (TiDB-backed)
+# Creating MemoryGrid Persistent Instances (TiDB-backed)
 
-Persistent FrameDB instances use TiDB as the underlying database engine and are managed via the FrameDB Config Service. These instances are distributed across Kubernetes clusters, with centralized provisioning managed by a global controller and cluster-specific deployments handled by local config services.
+Persistent MemoryGrid instances use TiDB as the underlying database engine and are managed via the MemoryGrid Config Service. These instances are distributed across Kubernetes clusters, with centralized provisioning managed by a global controller and cluster-specific deployments handled by local config services.
 
 ---
 
-## Creating FrameDB Local Config Service for Persistent Instances
+## Creating MemoryGrid Local Config Service for Persistent Instances
 
-The FrameDB local config service must be set up on each cluster where persistent FrameDB instances will be deployed. This service handles deployment, configuration, and health checks for the TiDB-based databases in response to commands proxied by the global config service.
+The MemoryGrid local config service must be set up on each cluster where persistent MemoryGrid instances will be deployed. This service handles deployment, configuration, and health checks for the TiDB-based databases in response to commands proxied by the global config service.
 
 ---
 
 ## API: `POST /framedb-config/setup`
 
-Sets up the FrameDB Config Service on the target Kubernetes cluster, including the TiDB-compatible infrastructure.
+Sets up the MemoryGrid Config Service on the target Kubernetes cluster, including the TiDB-compatible infrastructure.
 
 ### Behavior
 
 * Creates namespace `framedb-config` (if not present)
-* Deploys MongoDB + FrameDB Config Service with:
+* Deploys MongoDB + MemoryGrid Config Service with:
 
   * Persistent storage mounted at `/data/db`
   * Internal ClusterIP service: `framedb-local-config`
@@ -51,7 +51,7 @@ Sets up the FrameDB Config Service on the target Kubernetes cluster, including t
 
 ## API: `DELETE /framedb-config/remove`
 
-Removes all components of the FrameDB Config Service.
+Removes all components of the MemoryGrid Config Service.
 
 ### Behavior
 
@@ -80,7 +80,7 @@ Removes all components of the FrameDB Config Service.
 
 ## API: `POST /framedb-config/status`
 
-Reports the health and presence of all FrameDB components in the cluster.
+Reports the health and presence of all MemoryGrid components in the cluster.
 
 ### Response
 
@@ -95,7 +95,7 @@ Returns namespace, pod, service, PVC, and deployment status for:
 
 ## Global Management of Persistent Instances
 
-The following APIs are used to **create, delete, query, and inspect persistent TiDB-backed FrameDB instances**. Global metadata is stored centrally, and cluster interaction is delegated to local config services.
+The following APIs are used to **create, delete, query, and inspect persistent TiDB-backed MemoryGrid instances**. Global metadata is stored centrally, and cluster interaction is delegated to local config services.
 
 ---
 
