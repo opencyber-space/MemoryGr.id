@@ -8,16 +8,6 @@
 
 ## 📚 Contents
 
-* [Index](# MemoryGr.id
-
-**MemoryGrid** is a general-purpose, distributed/decentralized object store for storing multi-modal blobs such as video streams, high-resolution images, sensor data, AI inputs/outputs and any general data. It supports unified APIs over **in-memory**, **persistent**, and **streaming** backends, making it ideal for modern data-driven applications, AI pipelines, and real-time analytics.
-
-> MemoryGrid is Kubernetes-native, supports pluggable backends and custom serialization, and is designed for easy integration with ML/AI systems.
-
----
-
-## 📚 Contents
-
 * [Index](https://memorygrid-internal.pages.dev/)
 * [Introduction](https://memorygrid-internal.pages.dev/intro)
 * [Installation](https://memorygrid-internal.pages.dev/installation)
