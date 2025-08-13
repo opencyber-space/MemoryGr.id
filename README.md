@@ -19,6 +19,20 @@
 * [Routing Service](https://memorygrid-internal.pages.dev/routing-service)
 * [Video Ingestion](https://memorygrid-internal.pages.dev/video-ingestion)
 
+---
+
+## 🔗 Links
+
+* 📄 [Vision Paper](https://resources.aigr.id)
+* 📚 [Documentation](https://memorygrid-internal.pages.dev)
+* 💻 [GitHub](https://github.com/opencyber-space/MemoryGr.id)
+
+---
+
+## 🏗 Architecture Diagrams
+
+* 🗄 [FrameDB Storage Architecture](https://memorygrid-internal.pages.dev/framedb-storage.png)
+* 🎬 [GStreamer Architecture](https://memorygrid-internal.pages.dev/gst.png)
 
 ---
 
