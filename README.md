@@ -25,7 +25,7 @@ At an agency level, be it at org or society, **MemoryGrid** is a vast memory lib
 - Each memory type - *semantic, episodic, procedural, reflective, and strategic* - functions as a self-contained unit.  
 - Yet, all connect through standardized interfaces to form a higher-level integrated cognitive memory system.  
 
-
+---
 
 ## 🎯 Supported Core Memory System Types
 
