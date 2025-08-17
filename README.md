@@ -1,14 +1,33 @@
-# 🧠 MemoryGr.id: Open Individual & Collective Memory System 
+# 🧠 MemoryGr.id: Open Individual & Collective Memory System
 
-**Memorygrid** is a distributed memory system where agents manage their own layered memory systems but also contribute to and draw from a collective, evolving memory base, enabling both individual reasoning and coordinated collective intelligence.
+# **MemoryGrid**
 
-At an Agent level, MemoryGrid is a multi-layered collection of modular & interoperable memory systems where each memory system is for specific types of memory (facts, experiences, skills, reflections, and plans) and all layers integrate into cognitive memory whole.
+**MemoryGrid** is a distributed memory system where agents manage their own layered memory systems but also contribute to and draw from a collective, evolving memory base, enabling both individual reasoning and coordinated collective intelligence.  
 
-At Agency level, be it at org or society, The Memory Grid is a vast memory library built & contributed to by many agents: each agent adds its own memories of knowledge, experiences, facts, and plans. Every agent can then read, borrow, and update this shared collection, enabling both personal learning and collective reasoning.
+---
 
-The Memory Grid is a foundational subsystem for multi-agent cognition. Each memory type - semantic, episodic, procedural, reflective, and strategic - functions as a self-contained unit yet connects through standardized interfaces to form an higher level integrated cognitive memory system.
+## **Agent Level**
+At an agent level, **MemoryGrid** is a multi-layered collection of modular & interoperable memory systems, where each memory system is for specific types of memory *(facts, experiences, skills, reflections, and plans)* and all layers integrate into a cognitive memory whole.  
 
-## Supported Core Memory System Types
+---
+
+## **Agency Level**
+At an agency level, be it at org or society, **MemoryGrid** is a vast memory library built & contributed to by many agents.  
+
+- Each agent contributes its own select memories of knowledge, experiences, facts, and plans.  
+- Every agent can then read, borrow, and update this shared collection, enabling both personal learning and collective reasoning.  
+
+---
+
+## **Foundational Role**
+**MemoryGrid** is a foundational subsystem for multi-agent cognition.  
+
+- Each memory type - *semantic, episodic, procedural, reflective, and strategic* - functions as a self-contained unit.  
+- Yet, all connect through standardized interfaces to form a higher-level integrated cognitive memory system.  
+
+
+
+## 🎯 Supported Core Memory System Types
 
 | **Memory Type**          | **Brief**                                                                                              |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------------- |
@@ -24,7 +43,7 @@ The Memory Grid is a foundational subsystem for multi-agent cognition. Each memo
 
 
 
-## Temporal & Representational forms of Memory
+## ⏳ Temporal & 🗂️ Representational forms of Memory
 
 Memory in agents spans two axes: the temporal dimension (how long information lasts and is used) and the representational form (how information is structured and accessed). Together, these define the architecture that shapes intelligence’s depth, flexibility, and adaptability.
 
@@ -37,7 +56,7 @@ Memory in agents spans two axes: the temporal dimension (how long information la
 |                      | **Graph Memory**      | Stores knowledge as networks of relations, enabling rich semantic reasoning, causal modeling, and shared ontologies.            |
 
 
-## Strategic Memory
+## 🧩 Strategic Memory
 
 Strategic memory encodes the directional logic of intelligence — storing and updating plans, goals, states, values, and norms. Unlike content-focused (episodic, semantic) or process-focused (working) memory, it organizes cognition around purpose and alignment, enabling agents to act with direction, consistency, and coherence over time.
 
@@ -50,7 +69,7 @@ Strategic memory encodes the directional logic of intelligence — storing and u
 | **Value Memory**        | Holds ethical principles, cultural values, and preference systems, guiding decisions beyond immediate utility or rewards. |
 
 
-## Shared Memory Infrastructure
+## 🛠️ Shared Memory Infrastructure
 
 The collective substrate that enables agents to pool knowledge, goals, and signals for distributed sense-making and coordination.
 
@@ -71,7 +90,6 @@ The **MemoryGrid** is built upon the following key projects, each contributing a
 | **Project**       | **Intuitive Brief** |
 |--------------------|----------------------|
 | 🎮 **OpenArcade**  | Framework to shape agent populations; enables strategies for interaction, collaboration, cooperation, negotiation, and social decision-making. |
-| 🔐 **Xchange.id**  | Decentralized task exchange for agents & AI; routes tasks to specialist agents or agencies. |
 | 🌐 **OpenMe.sh**   | Open, protocol-native communication mesh; enables signaling, message exchange, and shared context across groups, orgs, and geographies. |
 | 🔗 **Pervasive.Link** | Meta-protocol that binds heterogeneous systems; encodes, translates protocols, context, languages, and strategies into interoperable structures. |
 
