@@ -1,4 +1,4 @@
-# 🧠 MemoryGr.id: Open Individual & Collective Memory System
+# 🧠 MemoryGr.id: Individual & Collective Memory System for AI societies
 
 # **MemoryGrid**
 
