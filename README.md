@@ -1,5 +1,7 @@
 # 🧠 MemoryGr.id: Individual & Collective Memory System for AI societies
 
+[![Part of Ecosystem: AGI Grid](https://img.shields.io/badge/⚡️Part%20of%20Ecosystem-AGI%20Grid-0A84FF?style=for-the-badge)](https://www.AGIGr.id)
+
 # **MemoryGrid**
 
 **MemoryGrid** is a distributed memory system where agents manage their own layered memory systems but also contribute to and draw from a collective, evolving memory base, enabling both individual reasoning and coordinated collective intelligence.  
