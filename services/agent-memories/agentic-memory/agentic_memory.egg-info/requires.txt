@@ -1,0 +1,9 @@
+weaviate-client>=4.0
+python-arango>=8.0
+psycopg2>=2.9
+openai>=1.0
+redis>=5.0
+
+[dev]
+pytest>=7
+pytest-mock>=3.10
